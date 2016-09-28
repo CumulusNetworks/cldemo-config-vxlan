@@ -28,7 +28,9 @@ def go(host, demo):
                      'sudo mv interfaces /etc/network/interfaces',
                      'sudo mv Quagga.conf /etc/quagga/Quagga.conf',
                      'sudo mv daemons /etc/quagga/daemons',
-                     'sudo reboot']
+                     'sudo systemctl restart vxrd.service',
+                     'sudo ifreload -a',
+                     'sudo systemctl restart quagga.service']
     elif "spine" in host:
         commands =  ['sudo apt-get install vxfld-vxsnd',
                      'sudo wget %s/%s/interfaces'%(url, host),
@@ -37,7 +39,9 @@ def go(host, demo):
                      'sudo mv interfaces /etc/network/interfaces',
                      'sudo mv Quagga.conf /etc/quagga/Quagga.conf',
                      'sudo mv daemons /etc/quagga/daemons',
-                     'sudo reboot']
+                     'sudo systemctl restart vxrd.service',
+                     'sudo ifreload -a',
+                     'sudo systemctl restart quagga.service']
     for line in commands:
         stdin, stdout, stderr = expect.exec_command(line, get_pty=True)
         stdout.channel.recv_exit_status()
