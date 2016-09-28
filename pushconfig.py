@@ -25,9 +25,12 @@ def go(host, demo):
                      'sudo wget %s/%s/interfaces'%(url, host),
                      'sudo wget %s/%s/Quagga.conf'%(url, host),
                      'sudo wget %s/%s/daemons'%(url, host),
+                     'sudo wget %s/%s/vxrd.conf'%(url, host),
                      'sudo mv interfaces /etc/network/interfaces',
                      'sudo mv Quagga.conf /etc/quagga/Quagga.conf',
                      'sudo mv daemons /etc/quagga/daemons',
+                     'sudo mv vxsnd.conf /etc/vxrd.conf',
+                     'sudo systemctl enable vxrd.service',
                      'sudo systemctl restart vxrd.service',
                      'sudo ifreload -a',
                      'sudo systemctl restart quagga.service']
@@ -36,10 +39,13 @@ def go(host, demo):
                      'sudo wget %s/%s/interfaces'%(url, host),
                      'sudo wget %s/%s/Quagga.conf'%(url, host),
                      'sudo wget %s/%s/daemons'%(url, host),
+                     'sudo wget %s/%s/vxsnd.conf'%(url, host),
                      'sudo mv interfaces /etc/network/interfaces',
                      'sudo mv Quagga.conf /etc/quagga/Quagga.conf',
                      'sudo mv daemons /etc/quagga/daemons',
-                     'sudo systemctl restart vxrd.service',
+                     'sudo mv vxsnd.conf /etc/vxsnd.conf',
+                     'sudo systemctl enable vxsnd.service',
+                     'sudo systemctl restart vxsnd.service',
                      'sudo ifreload -a',
                      'sudo systemctl restart quagga.service']
     for line in commands:

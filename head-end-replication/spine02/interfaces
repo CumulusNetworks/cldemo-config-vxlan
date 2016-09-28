@@ -1,6 +1,10 @@
 
 auto lo
 iface lo inet loopback
+
+auto lo
+iface lo inet static
+    address 10.0.0.200/32
     address 10.0.0.22/32
 
 auto eth0
