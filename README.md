@@ -1,4 +1,4 @@
-Demo Routing Configurations
+Demo VXLAN Configurations
 ===========================
 This Github repository contains the configuration files necessary for setting up VXLAN on the [Reference Topology](http://github.com/cumulusnetworks/cldemo-vagrant). Two solutions are included:
 
