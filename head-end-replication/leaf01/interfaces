@@ -3,7 +3,8 @@ auto lo
 iface lo inet loopback
     address 10.0.0.11/32
     vxrd-src-ip 10.0.0.11
-
+    vxrd-svcnode-ip 10.0.0.200
+  
 auto eth0
 iface eth0 inet dhcp
 
