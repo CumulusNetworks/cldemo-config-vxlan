@@ -19,10 +19,10 @@ Quickstart: Run the demo
     vagrant up oob-mgmt-server oob-mgmt-switch leaf01 leaf02 spine01 spine02 server01 server02
     vagrant ssh oob-mgmt-server
     sudo su - cumulus
-    git clone https://github.com/cumulusnetworks/cldemo-config-routing
-    cd cldemo-config-routing
-    sudo ln -s  /home/cumulus/cldemo-config-routing /var/www/cldemo-config-routing
-    python pushconfig.py bgp-unnumbered leaf01,leaf02,spine01,spine02,server01,server02
+    git clone https://github.com/cumulusnetworks/cldemo-config-vxlan
+    cd cldemo-config-vxlan
+    sudo ln -s  /home/cumulus/cldemo-config-vxlan /var/www/cldemo-config-vxlan
+    python pushconfig.py head-end-replication leaf01,leaf02,spine01,spine02,server01,server02
     ssh server01
     ping 172.16.2.101
 
