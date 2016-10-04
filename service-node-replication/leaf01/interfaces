@@ -3,6 +3,7 @@ auto lo
 iface lo inet loopback
     address 10.0.0.11/32
     vxrd-src-ip 10.0.0.11
+    vxrd-svcnode-ip 10.0.0.200
 
 auto eth0
 iface eth0 inet dhcp
@@ -26,6 +27,7 @@ iface vni-1000
   vxlan-id 1000
   bridge-access 100
   vxlan-local-tunnelip 10.0.0.11
+  vxrd-svcnode-ip 10.0.0.200
   mstpctl-bpduguard yes
   mstpctl-portbpdufilter yes
 

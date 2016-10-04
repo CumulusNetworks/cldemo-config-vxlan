@@ -21,8 +21,7 @@ def go(host, demo):
                      'sudo mv interfaces /etc/network/interfaces',
                      'sudo reboot']
     elif "leaf" in host:
-        commands =  ['sudo apt-get install vxfld-vxrd',
-                     'sudo wget %s/%s/interfaces'%(url, host),
+        commands =  ['sudo wget %s/%s/interfaces'%(url, host),
                      'sudo wget %s/%s/Quagga.conf'%(url, host),
                      'sudo wget %s/%s/daemons'%(url, host),
                      'sudo wget %s/%s/vxrd.conf'%(url, host),
@@ -35,8 +34,7 @@ def go(host, demo):
                      'sudo ifreload -a',
                      'sudo systemctl restart quagga.service']
     elif "spine" in host:
-        commands =  ['sudo apt-get install vxfld-vxsnd',
-                     'sudo wget %s/%s/interfaces'%(url, host),
+        commands =  ['sudo wget %s/%s/interfaces'%(url, host),
                      'sudo wget %s/%s/Quagga.conf'%(url, host),
                      'sudo wget %s/%s/daemons'%(url, host),
                      'sudo wget %s/%s/vxsnd.conf'%(url, host),
