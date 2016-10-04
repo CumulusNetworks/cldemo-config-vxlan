@@ -28,7 +28,7 @@ def go(host, demo):
                      'sudo mv interfaces /etc/network/interfaces',
                      'sudo mv Quagga.conf /etc/quagga/Quagga.conf',
                      'sudo mv daemons /etc/quagga/daemons',
-                     'sudo mv vxsnd.conf /etc/vxrd.conf',
+                     'sudo mv vxrd.conf /etc/vxrd.conf',
                      'sudo systemctl enable vxrd.service',
                      'sudo systemctl restart vxrd.service',
                      'sudo ifreload -a',
