@@ -27,7 +27,7 @@ iface vni-1000
   vxlan-id 1000
   bridge-access 100
   vxlan-local-tunnelip 10.0.0.12
-  vxrd-svcnode-ip 10.0.0.200
+  vxlan-svcnodeip 10.0.0.200
   mstpctl-bpduguard yes
   mstpctl-portbpdufilter yes
 
