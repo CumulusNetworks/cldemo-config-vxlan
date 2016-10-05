@@ -32,7 +32,8 @@ def go(host, demo):
                      'sudo systemctl enable vxrd.service',
                      'sudo systemctl restart vxrd.service',
                      'sudo ifreload -a',
-                     'sudo systemctl restart quagga.service']
+                     'sudo systemctl restart quagga.service',
+                     'sudo reboot']
     elif "spine" in host:
         commands =  ['sudo wget %s/%s/interfaces'%(url, host),
                      'sudo wget %s/%s/Quagga.conf'%(url, host),
@@ -45,7 +46,8 @@ def go(host, demo):
                      'sudo systemctl enable vxsnd.service',
                      'sudo systemctl restart vxsnd.service',
                      'sudo ifreload -a',
-                     'sudo systemctl restart quagga.service']
+                     'sudo systemctl restart quagga.service',
+                     'sudo reboot']
     for line in commands:
         stdin, stdout, stderr = expect.exec_command(line, get_pty=True)
         stdout.channel.recv_exit_status()
