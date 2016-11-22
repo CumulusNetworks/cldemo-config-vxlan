@@ -1,0 +1,76 @@
+---
+- hosts: spine
+  become: yes
+  tasks:
+    - name: copy interfaces
+      copy: src=service-node-replication/{{ansible_hostname}}/interfaces dest=/etc/network/
+    - name: copy Quagga daemons
+      copy: src=service-node-replication/{{ansible_hostname}}/daemons dest=/etc/quagga/
+    - name: copy Quagga conf
+      copy: src=service-node-replication/{{ansible_hostname}}/Quagga.conf dest=/etc/quagga/
+    - name: reload networking
+      command: ifreload -a
+    - name: reload quagga
+      service: name=quagga state=restarted
+
+- hosts: leaf
+  become: yes
+  tasks:
+    - name: copy interfaces
+      copy: src=service-node-replication/{{ansible_hostname}}/interfaces dest=/etc/network/
+    - name: copy Quagga daemons
+      copy: src=service-node-replication/{{ansible_hostname}}/daemons dest=/etc/quagga/
+    - name: copy Quagga conf
+      copy: src=service-node-replication/{{ansible_hostname}}/Quagga.conf dest=/etc/quagga/
+    - name: copy vxrd conf
+      copy: src=service-node-replication/{{ansible_hostname}}/vxrd.conf dest=/etc/
+    - name: reload networking
+      command: ifreload -a
+    - name: reload quagga
+      service: name=quagga state=restarted
+    - name: reload vxrd
+      service: name=vxrd state=restarted enabled=true
+
+- hosts: servers
+  become: yes
+  tasks:
+    - name: copy interfaces
+      copy: src=service-node-replication/{{ansible_hostname}}/interfaces dest=/etc/network/
+    - name: restarts servers with their new configuration
+      shell: sleep 1 && shutdown -r 0
+      async: 1
+      poll: 0
+      ignore_errors: true
+    - name: Wait for everything to come back up
+      local_action: wait_for port=22 host="{{ inventory_hostname }}" search_regex=OpenSSH delay=10
+
+
+
+    elif "leaf" in host:
+        commands =  ['sudo wget %s/%s/interfaces'%(url, host),
+                     'sudo wget %s/%s/Quagga.conf'%(url, host),
+                     'sudo wget %s/%s/daemons'%(url, host),
+                     'sudo wget %s/%s/vxrd.conf'%(url, host),
+                     'sudo mv interfaces /etc/network/interfaces',
+                     'sudo mv Quagga.conf /etc/quagga/Quagga.conf',
+                     'sudo mv daemons /etc/quagga/daemons',
+                     'sudo mv vxrd.conf /etc/vxrd.conf',
+                     'sudo systemctl enable vxrd.service',
+                     'sudo systemctl restart vxrd.service',
+                     'sudo ifreload -a',
+                     'sudo systemctl restart quagga.service',
+                     'sudo reboot']
+    elif "spine" in host:
+        commands =  ['sudo wget %s/%s/interfaces'%(url, host),
+                     'sudo wget %s/%s/Quagga.conf'%(url, host),
+                     'sudo wget %s/%s/daemons'%(url, host),
+                     'sudo wget %s/%s/vxsnd.conf'%(url, host),
+                     'sudo mv interfaces /etc/network/interfaces',
+                     'sudo mv Quagga.conf /etc/quagga/Quagga.conf',
+                     'sudo mv daemons /etc/quagga/daemons',
+                     'sudo mv vxsnd.conf /etc/vxsnd.conf',
+                     'sudo systemctl enable vxsnd.service',
+                     'sudo systemctl restart vxsnd.service',
+                     'sudo ifreload -a',
+                     'sudo systemctl restart quagga.service',
+                     'sudo reboot']

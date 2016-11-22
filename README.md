@@ -22,7 +22,7 @@ Before running this demo, install [VirtualBox](https://www.virtualbox.org/wiki/D
     git clone https://github.com/cumulusnetworks/cldemo-config-vxlan
     cd cldemo-config-vxlan
     sudo ln -s  /home/cumulus/cldemo-config-vxlan /var/www/cldemo-config-vxlan
-    python pushconfig.py head-end-replication leaf01,leaf02,spine01,spine02,server01,server02
+    ansible-playbook deploy-head-end-replication.yml
     ssh server01
     ping 172.16.2.101
 
