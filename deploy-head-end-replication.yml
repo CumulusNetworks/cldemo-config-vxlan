@@ -4,16 +4,16 @@
   tasks:
     - name: copy interfaces
       copy: src=head-end-replication/{{ansible_hostname}}/interfaces dest=/etc/network/
-    - name: copy Quagga daemons
-      copy: src=head-end-replication/{{ansible_hostname}}/daemons dest=/etc/quagga/
-    - name: copy Quagga conf
-      copy: src=head-end-replication/{{ansible_hostname}}/Quagga.conf dest=/etc/quagga/
+    - name: copy FRR daemons
+      copy: src=head-end-replication/{{ansible_hostname}}/daemons dest=/etc/frr/
+    - name: copy FRR conf
+      copy: src=head-end-replication/{{ansible_hostname}}/frr.conf dest=/etc/frr/frr.conf
     - name: copy vxsnd conf
       copy: src=head-end-replication/{{ansible_hostname}}/vxsnd.conf dest=/etc/
     - name: reload networking
       command: ifreload -a
-    - name: reload quagga
-      service: name=quagga state=restarted
+    - name: reload frr 
+      service: name=frr state=restarted
     - name: reload vxsnd
       service: name=vxsnd state=restarted enabled=true
 
@@ -22,16 +22,16 @@
   tasks:
     - name: copy interfaces
       copy: src=head-end-replication/{{ansible_hostname}}/interfaces dest=/etc/network/
-    - name: copy Quagga daemons
-      copy: src=head-end-replication/{{ansible_hostname}}/daemons dest=/etc/quagga/
-    - name: copy Quagga conf
-      copy: src=head-end-replication/{{ansible_hostname}}/Quagga.conf dest=/etc/quagga/
+    - name: copy FRR daemons
+      copy: src=head-end-replication/{{ansible_hostname}}/daemons dest=/etc/frr/
+    - name: copy FRR conf
+      copy: src=head-end-replication/{{ansible_hostname}}/frr.conf dest=/etc/frr/frr.conf
     - name: copy vxrd conf
       copy: src=head-end-replication/{{ansible_hostname}}/vxrd.conf dest=/etc/
     - name: reload networking
       command: ifreload -a
-    - name: reload quagga
-      service: name=quagga state=restarted
+    - name: reload FRR 
+      service: name=frr state=restarted
     - name: reload vxrd
       service: name=vxrd state=restarted enabled=true
 
